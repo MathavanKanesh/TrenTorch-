@@ -1,0 +1,12 @@
+import numpy as np 
+
+def solve(values, categories):
+    arr = np.zeros((len(values), len(categories)), dtype=int)
+
+    for i in range(len(values)):
+        j = categories.index(values[i])
+        arr[i][j] = 1
+
+    return arr 
+
+print(solve(['a', 'c', 'b'], ['a', 'b', 'c']))

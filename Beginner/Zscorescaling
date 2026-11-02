@@ -12,3 +12,5 @@ def solve(X):
         array[i][0] = (array[i][0] - mean) / std
 
     return array
+
+print(solve([[1.0], [2.0], [3.0]]))

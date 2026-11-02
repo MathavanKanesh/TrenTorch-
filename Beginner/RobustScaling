@@ -1,0 +1,18 @@
+import numpy as np
+
+def solve(X):
+    array = np.array(X, dtype=float)
+    median = np.median(array)
+    Q1 = np.percentile(array,25)
+    Q3 = np.percentile(array,75)
+    IQR = Q3 - Q1 
+
+    if IQR == 0:
+        return np.zeros_like(array)
+        
+    for i in range(len(array)):
+        array[i][0] = (array[i][0] - median) / IQR
+
+    return array
+
+print(solve([[1.0], [2.0], [3.0], [4.0]]))

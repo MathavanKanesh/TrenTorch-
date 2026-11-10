@@ -1,0 +1,39 @@
+def broadcast_shapes(shape_a: tuple[int, ...], shape_b: tuple[int, ...]) -> tuple[int, ...] | None:
+    """
+    Mirrors NumPy/PyTorch's broadcasting rule for determining the
+    result shape of an elementwise operation between two arrays.
+
+    Returns:
+        the broadcast result shape, or None if the two shapes are
+        incompatible.
+    """
+
+    if len(shape_a) < len(shape_b):
+        difference = len(shape_b) - len(shape_a)
+        for i in range(difference):
+            shape_a = (1,) + shape_a
+
+    if len(shape_b) < len(shape_a):
+        difference = len(shape_a) - len(shape_b)
+        for i in range(difference):
+            shape_b = (1,) + shape_b
+
+    result = ()
+
+    for i in range(len(shape_a)):
+        dim_a = shape_a[i]
+        dim_b = shape_b[i]
+
+        if dim_a == dim_b:
+            result = result + (dim_a,)
+
+        elif dim_a == 1:
+            result = result + (dim_b,)
+
+        elif dim_b == 1:
+            result = result + (dim_a,)
+
+        else:
+            return None
+
+    return result
